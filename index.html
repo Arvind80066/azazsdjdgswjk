@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comprehensive Capital Finder</title>
+    <style>
+        /* CSS remains the same for the best UI */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background: #ffffff;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 450px;
+        }
+        h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #5cb85c;
+            padding-bottom: 10px;
+        }
+        .form-group {
+            margin-bottom: 25px;
+        }
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+            font-size: 1.1em;
+            color: #555;
+        }
+        select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 1em;
+            cursor: pointer;
+            background-color: #fff;
+            appearance: none; 
+            background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23007BC7%22%20d%3D%22M287%2069.9L146.2%20209.3%205.4%2069.9z%22%2F%3E%3C%2Fsvg%3E');
+            background-repeat: no-repeat;
+            background-position: right 10px top 50%;
+            background-size: 10px auto;
+        }
+        #capitalOutput {
+            margin-top: 30px;
+            padding: 15px;
+            border: 2px dashed #5cb85c;
+            border-radius: 8px;
+            min-height: 40px;
+            font-size: 1.2em;
+            text-align: center;
+            background-color: #e6f7e6;
+            color: #38761d;
+        }
+        #capitalOutput span {
+            font-weight: bold;
+            color: #000000;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>🗺️ Comprehensive Capital Finder</h2>
+
+    <div class="form-group">
+        <label for="countrySelect">Select a Country:</label>
+        <select id="countrySelect" onchange="displayCapital()">
+            </select>
+    </div>
+
+    <div id="capitalOutput">
+        Select a country to see its capital.
+    </div>
+</div>
+
+<script>
+    // 1. Comprehensive Data Mapping (Over 40 countries)
+    const capitals = {
+        "": "-- Please Select --", // Default value for the prompt
+        "Afghanistan": "Kabul",
+        "Algeria": "Algiers",
+        "Argentina": "Buenos Aires",
+        "Australia": "Canberra",
+        "Austria": "Vienna",
+        "Brazil": "Brasília",
+        "Canada": "Ottawa",
+        "Chile": "Santiago",
+        "China": "Beijing",
+        "Colombia": "Bogotá",
+        "Egypt": "Cairo",
+        "Ethiopia": "Addis Ababa",
+        "France": "Paris",
+        "Germany": "Berlin",
+        "Ghana": "Accra",
+        "Greece": "Athens",
+        "India": "New Delhi",
+        "Indonesia": "Jakarta",
+        "Iran": "Tehran",
+        "Iraq": "Baghdad",
+        "Ireland": "Dublin",
+        "Israel": "Jerusalem",
+        "Italy": "Rome",
+        "Japan": "Tokyo",
+        "Kenya": "Nairobi",
+        "Mexico": "Mexico City",
+        "Morocco": "Rabat",
+        "Netherlands": "Amsterdam",
+        "New Zealand": "Wellington",
+        "Nigeria": "Abuja",
+        "Norway": "Oslo",
+        "Peru": "Lima",
+        "Philippines": "Manila",
+        "Poland": "Warsaw",
+        "Portugal": "Lisbon",
+        "Russia": "Moscow",
+        "Saudi Arabia": "Riyadh",
+        "South Africa": "Pretoria (Executive)",
+        "South Korea": "Seoul",
+        "Spain": "Madrid",
+        "Sweden": "Stockholm",
+        "Turkey": "Ankara",
+        "UK": "London",
+        "USA": "Washington, D.C.",
+        "Vietnam": "Hanoi"
+        // Note: For all 195 countries, this list would continue here...
+    };
+
+    /**
+     * Function to dynamically populate the <select> box on page load.
+     */
+    function populateDropdown() {
+        const selectElement = document.getElementById('countrySelect');
+        const countryNames = Object.keys(capitals);
+
+        // Iterate through the sorted country names and create <option> tags
+        countryNames.sort().forEach(country => {
+            const option = document.createElement('option');
+            option.value = country;
+            option.textContent = capitals[country] === "-- Please Select --" ? capitals[country] : country;
+            selectElement.appendChild(option);
+        });
+        
+        // Ensure the default option is the first one, even after sorting the rest
+        selectElement.options[0].selected = true;
+    }
+
+    /**
+     * Function called every time the selection box value changes.
+     */
+    function displayCapital() {
+        const selectElement = document.getElementById('countrySelect');
+        const selectedCountry = selectElement.value;
+        const outputElement = document.getElementById('capitalOutput');
+
+        if (selectedCountry && selectedCountry !== "") {
+            const capital = capitals[selectedCountry];
+            
+            outputElement.innerHTML = `The capital of ${selectedCountry} is <span>${capital}</span>.`;
+            
+        } else {
+            outputElement.innerHTML = `Select a country to see its capital.`;
+        }
+    }
+
+    // Call the function to build the dropdown when the script loads
+    populateDropdown();
+</script>
+
+</body>
+</html>
